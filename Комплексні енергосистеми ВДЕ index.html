@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Тема: Комплексні енергосистеми з ВДЕ</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:wght@400;600&family=Manrope:wght@600;800&display=swap">
+<style>
+:root{--bg:#f3f6f9;--card:#fff;--ink:#10151a;--mut:#58646e;--line:#d5dde4;--sun:#e59f00;--wind:#1d7fb8;--hyd:#2f8f5b;--mk-bg:#000;--mk-fg:#fff;--ok:#1f8a4c;--bad:#c23b3b;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1317;--card:#171e24;--ink:#e9eef2;--mut:#9aa7b1;--line:#2b353d;--mk-bg:#fff;--mk-fg:#000;--ok:#4cc27f;--bad:#ef7676}}
+:root[data-theme="dark"]{--bg:#0e1317;--card:#171e24;--ink:#e9eef2;--mut:#9aa7b1;--line:#2b353d;--mk-bg:#fff;--mk-fg:#000;--ok:#4cc27f;--bad:#ef7676}
+html{scroll-behavior:smooth;scroll-padding-top:calc(60px + env(safe-area-inset-top,0px));height:auto}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.65 Literata,Georgia,serif}
+h1,h2,h3,nav,button,.lbl{font-family:Manrope,system-ui,sans-serif}
+header{padding:28px 18px 8px;max-width:820px;margin:auto;text-align:center}
+h1{font-size:clamp(26px,5vw,38px);line-height:1.15;margin:0 0 8px;font-weight:800}
+.sub{color:var(--mut);margin:0}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);display:flex;gap:6px;overflow-x:auto;padding:10px 18px}
+nav a{white-space:nowrap;font-size:14px;font-weight:600;color:var(--ink);text-decoration:none;border:1px solid var(--line);border-radius:99px;padding:5px 12px;background:var(--card)}
+nav a:hover,nav a:focus-visible{border-color:var(--wind);outline:none}
+main{max-width:820px;margin:auto;padding:0 18px 60px}
+section{margin-top:34px}
+h2{font-size:23px;margin:0 0 12px;font-weight:800}
+h3{font-size:17px;margin:18px 0 6px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin:12px 0}
+ul{padding-left:20px;margin:6px 0}li{margin:4px 0}
+mark{background:var(--mk-bg);color:var(--mk-fg);padding:1px 5px;border-radius:3px;font-weight:600}
+.legend{font-size:14px;color:var(--mut)}
+.plan{list-style:none;padding:0}
+.plan li{margin:0;border-top:1px solid var(--line)}
+.plan a{display:flex;justify-content:space-between;gap:10px;padding:9px 2px;color:var(--ink);text-decoration:none}
+.plan a:hover{color:var(--wind)}.plan span{color:var(--mut);font-size:14px}
+.tree{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));font-size:15px;line-height:1.45}
+.tree div{border-left:5px solid var(--wind);background:var(--card);border-radius:6px;padding:8px 12px;border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.tree .s{border-left-color:var(--sun)}.tree .h{border-left-color:var(--hyd)}
+.tree b{font-family:Manrope,sans-serif;display:block}
+svg{width:100%;height:auto;display:block}
+svg text{font-family:Manrope,sans-serif;fill:var(--ink)}
+.fig{margin:14px 0}.cap{font-size:14px;color:var(--mut);margin-top:4px}
+table{border-collapse:collapse;width:100%;font-size:15px;line-height:1.4}
+th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+th{background:var(--bg);font-family:Manrope,sans-serif}
+.scroll{overflow-x:auto}
+.eq{font-size:20px;text-align:center;padding:10px;background:var(--bg);border-radius:8px;overflow-x:auto}
+.btns{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.btns button,.opt,.ctl{font:600 14px Manrope,sans-serif;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:8px 12px;cursor:pointer}
+.btns button[aria-pressed="true"]{background:var(--wind);border-color:var(--wind);color:#fff}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.chip{font:600 14px Manrope,sans-serif;padding:6px 12px;border-radius:99px;border:2px solid var(--line);color:var(--mut)}
+.chip.on{border-color:var(--hyd);color:var(--ink);background:color-mix(in srgb,var(--hyd) 18%,transparent)}
+.q{margin:14px 0}.q p{margin:0 0 8px;font-weight:600}
+.opt{display:block;width:100%;text-align:left;margin:6px 0;font-weight:400;font-family:Literata,Georgia,serif;font-size:16px;line-height:1.4}
+.opt:disabled{cursor:default}.opt.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 16%,transparent)}.opt.bad{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 16%,transparent)}
+.exp{font-size:15px;color:var(--mut);margin-top:6px}.exp a{color:var(--wind)}
+.score{position:sticky;bottom:calc(8px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);border-radius:99px;padding:8px 16px;font:700 14px Manrope,sans-serif;display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:14px}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin:6px 0}.bar i{display:block;height:100%;width:0;background:var(--wind);transition:width .3s}
+.ctl{background:var(--wind);color:#fff;border-color:var(--wind)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.bar i{transition:none}}
+</style>
+</head>
+<body>
+<header>
+<h1>Тема: Комплексні енергосистеми з відновлюваними джерелами енергії</h1>
+</header>
+<main>
+
+<section id="plan">
+<h2 style="text-align:center">План</h2>
+<div class="card">
+<ol class="plan">
+<li><a href="#s1">1. Поняття комбінованої енергосистеми</a></li>
+<li><a href="#s2">2. Мережеві енергосистеми</a></li>
+<li><a href="#s3">3. Автономні енергосистеми</a></li>
+<li><a href="#s4">4. Оптимізація комбінованої системи</a></li>
+<li><a href="#s5">5. Приклади комбінування різнотипних джерел</a></li>
+<li><a href="#test">Тест: 20 питань</a></li>
+</ol>
+</div>
+<div class="tree" aria-label="Схема розділу">
+<div><b>Мережеві</b>ВЕС/СЕС + мережа: мережа приймає надлишок і покриває дефіцит</div>
+<div class="s"><b>Автономні</b>Мікромережа: шина ПС або ЗС, АБ, резервний генератор</div>
+<div class="h"><b>ЛЕС</b>Може працювати і автономно, і разом із централізованою мережею</div>
+<div><b>Оптимізація</b>Вартість, надійність (LOLE, LPSP), Парето</div>
+<div class="s"><b>Приклади</b>Вітродизельні, фотодизельні, водневі системи</div>
+</div>
+</section>
+
+<section id="s1">
+<h2 style="text-align:center">1. Поняття комбінованої енергосистеми</h2>
+<div class="card">
+<ul>
+<li><b>Комплексне використання</b>: кілька джерел одночасно або в комбінаціях. Лише ВДЕ сильно обмежує користувача, тому частіше ВДЕ поєднують із традиційними (дизель-генератор, ГТУ, мережа).</li>
+<li><mark data-q="1">Гібридне енергоживлення</mark>: поєднання установок на відновлюваних і традиційних джерелах, зокрема власних джерел і централізованої мережі.</li>
+<li>Режими елементів: паралельний, послідовний, послідовно-паралельний. Здебільшого система працює в <mark data-q="2">паралельному режимі</mark>, коли енергію виробляють усі елементи одночасно.</li>
+<li>Для якості живлення потрібні акумулювання та автоматичне керування режимами.</li>
+</ul>
+<h3>Чинники вибору конфігурації</h3>
+<ul><li>потенціал ВДЕ та традиційних джерел регіону; клімат</li><li>структура споживання, тип навантаження, вимоги до якості та погодинного графіка</li><li>економічні й екологічні фактори</li></ul>
+<h3>Розподілена генерація</h3>
+<ul>
+<li><mark data-q="3">Мікромережі (microgrids)</mark>: малі локальні системи генерації й розподілу, що об’єднують навантаження, різні ВДЕ, системи зберігання та звичайні генератори. Бувають змінного й постійного струму.</li>
+<li>Децентралізовані системи забезпечують двонапрямлений потік енергії та інформації. Концепція active distribution network: перехід від споживачів до <mark data-q="4">виробників-споживачів (prosumers)</mark>.</li>
+<li>Ключовий фактор конфігурації — <mark data-q="5">можливість керування режимом генерації</mark>. ВЕС і СЕС керуються обмежено через залежність від погоди.</li>
+<li>Заявлені графіки генерації й споживання складають <mark data-q="6">погодинно на добу наперед</mark> (вітчизняні вимоги). Для прогнозу застосовують регресію та нейромережі. Додатковий засіб балансування — регульоване споживання (demand response).</li>
+</ul>
+<h3>Україна</h3>
+<ul><li>Середня й північна зони: нестачу від ВЕС і СЕС компенсують традиційними джерелами.</li><li>Південь: пасивне теплове акумулювання влітку може дати повну автономність.</li></ul>
+</div>
+</section>
+
+<section id="s2">
+<h2 style="text-align:center">2. Мережеві енергосистеми</h2>
+<div class="card">
+<ul>
+<li>Інтеграція ВЕС і СЕС у мережу знижує витрати й підвищує надійність: мережа приймає надлишок і компенсує нестачу.</li>
+<li>Топологія 1: спільна шина постійного струму. <mark data-q="7">Інвертор є інтерфейсом між джерелами та мережею й контролює напругу шини постійного струму</mark>. Надлишок заряджає АБ, за відсутності генерації АБ розряджається на споживача.</li>
+<li>Топологія 2: джерела віддають енергію в мережу через індивідуальні інвертори (незалежне використання).</li>
+</ul>
+<div class="fig card">
+<svg viewBox="0 0 640 250" role="img" aria-label="Порівняння шин постійного й змінного струму">
+<g font-size="13" text-anchor="middle">
+<text x="150" y="20" font-weight="800" font-size="15">а) Спільна шина ПС</text>
+<text x="480" y="20" font-weight="800" font-size="15">б) Індивідуальні інвертори</text>
+<g fill="#1d7fb8" fill-opacity=".18" stroke="#1d7fb8"><rect x="20" y="40" width="60" height="30" rx="4"/><rect x="20" y="90" width="60" height="30" rx="4"/><rect x="20" y="140" width="60" height="30" rx="4"/></g>
+<text x="50" y="60">ВЕУ</text><text x="50" y="110">СЕС</text><text x="50" y="160">АБ</text>
+<path d="M80 55H110M80 105H110M80 155H110" stroke="currentColor" fill="none"/>
+<rect x="108" y="38" width="10" height="140" fill="#e59f00"/>
+<text x="113" y="196" font-size="11">шина ПС</text>
+<path d="M118 108H150" stroke="currentColor"/>
+<rect x="150" y="90" width="60" height="36" rx="4" fill="#2f8f5b" fill-opacity=".22" stroke="#2f8f5b"/><text x="180" y="112">Інвертор</text>
+<path d="M210 108H240" stroke="currentColor"/>
+<rect x="240" y="90" width="60" height="36" rx="4" fill="none" stroke="currentColor"/><text x="270" y="112">Мережа</text>
+<g fill="#1d7fb8" fill-opacity=".18" stroke="#1d7fb8"><rect x="350" y="40" width="50" height="30" rx="4"/><rect x="350" y="100" width="50" height="30" rx="4"/></g>
+<text x="375" y="60">ВЕУ</text><text x="375" y="120">СЕС</text>
+<g fill="#2f8f5b" fill-opacity=".22" stroke="#2f8f5b"><rect x="430" y="40" width="50" height="30" rx="4"/><rect x="430" y="100" width="50" height="30" rx="4"/></g>
+<text x="455" y="60">Інв.</text><text x="455" y="120">Інв.</text>
+<path d="M400 55H430M400 115H430M480 55H520M480 115H520" stroke="currentColor"/>
+<rect x="518" y="38" width="10" height="110" fill="#e59f00"/><text x="523" y="166" font-size="11">шина ЗС</text>
+<path d="M528 93H560" stroke="currentColor"/>
+<rect x="560" y="75" width="64" height="36" rx="4" fill="none" stroke="currentColor"/><text x="592" y="97">Мережа</text>
+<text x="150" y="230" font-size="12" fill="currentColor">+ джерела без синхронізму; АБ стабілізує U</text>
+<text x="480" y="230" font-size="12">+ простота, низька вартість, розширюваність</text>
+</g></svg>
+<p class="cap">Схематично за рис. 7.1.</p></div>
+<h3>Вплив на якість електроенергії і заходи</h3>
+<div class="scroll"><table>
+<tr><th>Проблема</th><th>Засіб</th></tr>
+<tr><td>Флуктуації напруги</td><td>активні фільтри (динамічні регулятори напруги, STATCOM, уніфіковані кондиціонери якості), шунтувальні фільтри</td></tr>
+<tr><td>Реактивна потужність</td><td>силові компенсатори</td></tr>
+<tr><td>Флуктуації частоти (різкі зміни активної потужності)</td><td>контури керування потужністю й частотою, швидке регулювання системним оператором</td></tr>
+<tr><td>Мінливість генерації</td><td>прогноз погоди, регресія, географічний розподіл ВДЕ, акумулювання (UPS)</td></tr>
+</table></div>
+</div>
+</section>
+
+<section id="s3">
+<h2 style="text-align:center">3. Автономні енергосистеми</h2>
+<div class="card">
+<ul>
+<li>Автономна система (мікромережа) доречна для віддалених районів, де підключення до ЛЕП невигідне. Топології: шина постійного або змінного струму.</li>
+<li>Вітер і сонце доповнюють одне одного, тож система надійніша. Гарячий резерв (наприклад, дизель-генератор) перекриває дефіцит. Головна економічна проблема — вартість зберігання енергії.</li>
+<li>Шина ПС зі спільним інвертором: <mark data-q="8">джерела не мусять працювати на постійній частоті й у синхронізмі</mark>. Струм кожного джерела регулюється незалежно, <mark data-q="9">акумуляторна батарея є стабілізатором напруги</mark>.</li>
+<li>Мікромережі ПС: менше етапів перетворення, менше перетворювачів; зручні для електромобілів, LED, комп’ютерів.</li>
+<li>Шина ЗС: проста, дешева, масштабована; складніше контролювати напругу й частоту.</li>
+<li>Коливання частоти зменшують АБ і фільтри. У схемі «ВЕУ + ФЕС + АБ + дизель» додають <mark data-q="10">суперконденсатор: він покриває дефіцит під час пуску дизель-генератора</mark> і компенсує обмеження струму заряду/розряду АБ.</li>
+</ul>
+<h3>Баланс потужностей</h3>
+<div class="eq">P<sub>Δ</sub>(t) = P<sub>W</sub>(t) + P<sub>S</sub>(t) ± P<sub>A</sub>(t) + P<sub>gen</sub>(t) − P<sub>U</sub>(t)</div>
+<ul><li><mark data-q="11">P<sub>Δ</sub> — небаланс потужностей</mark>; W — ВЕС, S — СЕС, A — АБ, gen — генератор, U — навантаження.</li>
+<li>Мережа компенсує небаланс: P<sub>Gr</sub> = ±P<sub>Δ</sub>.</li>
+<li>Резерв: ДВЗ, біогазова станція, міні-ГЕС, «електролізер – бак – паливний елемент».</li>
+<li>Рішення проблем (дорогі АБ, втрати/обмеження споживання): комбінація вітру й сонця, резервні джерела, водень.</li></ul>
+</div>
+</section>
+
+<section id="s4">
+<h2 style="text-align:center">4. Оптимізація комбінованої системи</h2>
+<div class="card">
+<ul>
+<li><mark data-q="13">Локальна енергосистема (ЛЕС)</mark>: генерувальне обладнання обмеженої потужності низької напруги, перетворювачі й споживачі в єдиних електромагнітних процесах; має зв’язок із централізованою мережею й працює автономно або разом із нею.</li>
+<li>Критерії: M{P<sub>Δ</sub>}→min, D{P<sub>Δ</sub>}→min, обмеження резерву, мінімакс, мінімум вартості обладнання. Групи параметрів: економічні (найчастіше собівартість) і технічні (надійність).</li>
+<li>Надійність = адекватність (достатній потенціал) + безпека (стійкість до збурень).</li>
+</ul>
+<h3>Індекси надійності</h3>
+<div class="scroll"><table>
+<tr><th>Індекс</th><th>Зміст</th></tr>
+<tr><td><mark data-q="14">LOLE</mark></td><td>час, коли навантаження перевищує доступну генерацію (год/рік). Норма: США 0,1 доби/рік, Франція 3 год, Британія 4 год, Ірландія 8 год</td></tr>
+<tr><td>LOEE</td><td>очікувана недоотримана енергія (МВт·год/рік)</td></tr>
+<tr><td>LOLF</td><td>кількість випадків дефіциту на рік</td></tr>
+<tr><td>W<sub>E</sub></td><td>втрачена надлишкова енергія</td></tr>
+<tr><td><mark data-q="15">SAIDI / SAIFI</mark></td><td>середня тривалість / середня частота довгих перерв електропостачання</td></tr>
+<tr><td><mark data-q="16">LPSP</mark></td><td>імовірність втрати живлення, популярний для автономних і комбінованих систем</td></tr>
+</table></div>
+<h3>Методи</h3>
+<ul><li>Генетичні алгоритми, рій частинок, імітація відпалу, лінійне програмування.</li><li>Множники Лагранжа: мінімум дисперсії сумарної потужності ВЕС + СЕС залежить лише від їх пропорції.</li><li>Дворівневі моделі: верхній рівень — прибуток власників, нижній — баланс і керування споживанням.</li></ul>
+<div class="fig card">
+<svg viewBox="0 0 340 215" role="img" aria-label="Крива вартість-ризик і точки А, В">
+<g id="pareto" font-size="12"></g></svg>
+<div class="btns" id="pbtns"><button aria-pressed="false" data-p="A">Пріоритет вартості (A)</button><button aria-pressed="false" data-p="B">Пріоритет ризику (B)</button><button aria-pressed="true" data-p="AB">Без пріоритету (AB)</button></div>
+<p class="cap" id="pcap"></p></div>
+<ul><li>Модель Тобіна: критерії — вартість і ризик (σ небалансу). <mark data-q="17">Парето-оптимальні рішення</mark>: покращення одного показника можливе лише за рахунок погіршення іншого.</li></ul>
+</div>
+</section>
+
+<section id="s5">
+<h2 style="text-align:center">5. Приклади комбінування різнотипних джерел</h2>
+<div class="card">
+<h3>Комплементарність ВДЕ</h3>
+<ul>
+<li><mark data-q="20">Вітер найсильніший узимку, сонце влітку, річки під час весняних повеней</mark>; тому комбінування згладжує коливання.</li>
+<li>Швидкість змін: ГЕС керована; вітер змінюється за десятки хвилин; сонце — за хвилини й секунди. Тому додають стабільні геотермальну енергію й біомасу.</li>
+</ul>
+<div class="fig card"><svg viewBox="0 0 340 170" role="img" aria-label="Схематичний річний хід вітру, сонця, річок"><g id="seas" font-size="11"></g></svg>
+<p class="cap">Схема (не виміряні дані): <b style="color:var(--wind)">вітер</b>, <b style="color:var(--sun)">сонце</b>, <b style="color:var(--hyd)">річки</b>.</p></div>
+<h3>Водень</h3>
+<ul><li><mark data-q="12">Електроліз перетворює надлишок енергії ВДЕ на водень</mark>, який зберігають і знову перетворюють на електроенергію в паливних елементах. Це зменшує втрати від вимушених обмежень генерації й дає змогу робити сезонне накопичення.</li></ul>
+<h3>Вітродизельні станції (ВДЕС)</h3>
+<ul><li>Збалансована ВДЕС скорочує споживання дизпалива на <mark data-q="18">60–80 %</mark>, а ресурс двигунів збільшує у 2–3 рази.</li>
+<li>Режим обирається автоматично за швидкістю вітру, навантаженням і зарядом АБ. Натисніть режим, щоб побачити активні елементи:</li></ul>
+<div class="btns" id="mbtns" role="group" aria-label="Режими ВДЕС"></div>
+<div class="chips" id="chips" aria-live="polite"></div>
+<p id="mdesc"></p>
+<ul><li>Генератор працює на споживача: менше годин роботи, але більше циклів вмикання й імовірні обмеження споживання. Генератор заряджає АБ: немає втрат навантаження, але великі втрати надлишкової енергії.</li>
+<li>Фотодизельні станції (СЕС + дизель-генератори) працюють за схожими режимами.</li></ul>
+</div>
+</section>
+
+<section id="test">
+<h2 style="text-align:center">Тест: 20 питань</h2>
+<div class="bar"><i id="pb"></i></div>
+<div id="quiz"></div>
+<div class="score"><span id="sc">Відповідено: 0/20 · Правильно: 0</span><button class="ctl" id="rs">Спочатку</button></div>
+<p class="legend" id="res"></p>
+</section>
+</main>
+
+<script>
+(function(){
+var $=function(s){return document.querySelector(s)};
+/* Pareto */
+var NS='http://www.w3.org/2000/svg',g=$('#pareto'),pts=[];
+for(var x=40;x<=300;x+=4)pts.push(x+','+(170-4500/(x-5)).toFixed(1));
+var Ax=52.4,Ay=75,Bx=240,By=170-4500/235;
+g.innerHTML='<path d="M30 10V180H320" stroke="currentColor" fill="none"/><text x="320" y="198" text-anchor="end">вартість C</text><text x="8" y="20">ризик σ</text>'+
+'<polyline id="cv" points="'+pts.join(' ')+'" fill="none" stroke="#1d7fb8" stroke-width="2"/>'+
+'<path d="M30 75H320M240 10V180" stroke="#c23b3b" stroke-dasharray="4 3"/><text x="314" y="70" text-anchor="end">σmax</text><text x="244" y="22">Cmax</text>'+
+'<path id="pa" d="" stroke="#e59f00" stroke-width="5" fill="none"/>'+
+'<circle cx="'+Ax+'" cy="'+Ay+'" r="6" fill="#e59f00"/><text x="'+(Ax+10)+'" y="'+(Ay-8)+'" font-weight="800">A</text>'+
+'<circle cx="'+Bx+'" cy="'+By.toFixed(1)+'" r="6" fill="#e59f00"/><text x="'+(Bx-14)+'" y="'+(By-10).toFixed(1)+'" font-weight="800">B</text>';
+var seg=pts.filter(function(p){var v=+p.split(',')[0];return v>=Ax&&v<=Bx}).join(' L');
+var caps={A:'Точка A: найдешевша конфігурація, ризик не перевищує σmax.',B:'Точка B: найменший ризик за вартості не вище Cmax.',AB:'Крива AB: множина Парето-оптимальних рішень. Дешевші конфігурації мають вищий ризик; акумулятори знижують ризик, але підвищують вартість.'};
+function pset(k){$('#pcap').textContent=caps[k];$('#pa').setAttribute('d',k==='AB'?'M'+seg:'');
+document.querySelectorAll('#pbtns button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.p===k)})}
+document.querySelectorAll('#pbtns button').forEach(function(b){b.onclick=function(){pset(b.dataset.p)}});pset('AB');
+/* Seasons */
+var m='С Л Б К Т Ч Л С В Ж Л Г'.split(' '),sg=$('#seas'),h='<path d="M25 10V140H330" stroke="currentColor" fill="none"/>';
+function cur(f,c){var p=[];for(var i=0;i<12;i++){p.push((35+i*26)+','+(140-f(i)*115).toFixed(1))}return '<polyline points="'+p.join(' ')+'" fill="none" stroke="'+c+'" stroke-width="2.5"/>'}
+h+=cur(function(i){return .55+.4*Math.cos((i)/12*2*Math.PI)},'#1d7fb8');
+h+=cur(function(i){return .5+.45*Math.cos((i-6)/12*2*Math.PI)},'#e59f00');
+h+=cur(function(i){return .15+.8*Math.exp(-Math.pow(i-3.7,2)/2.2)},'#2f8f5b');
+['січ','кві','лип','жов'].forEach(function(t,k){h+='<text x="'+(35+k*3*26)+'" y="158" text-anchor="middle">'+t+'</text>'});
+sg.innerHTML=h;
+/* Modes */
+var modes=[
+['Тільки дизелі',[0,1,1,0],'Вітру немає: працюють дизелі. За малого попиту — лише АБ. Дизелі також запускають систему керування та заряджають АБ.'],
+['ВЕУ і дизелі',[1,1,0,0],'Вітру достатньо для ВЕУ: потужність дизелів знижують, обирають оптимальний генератор або їх комбінацію.'],
+['ВЕУ і один дизель',[1,1,0,1],'ВЕУ майже покривають навантаження: один дизель на мінімумі як резерв, надлишок поглинає баластне або теплове навантаження.'],
+['ВЕУ й АБ',[1,0,1,0],'Вітру достатньо: АБ накопичує енергію й слугує резервом, якщо дизелі вимкнені.'],
+['Тільки ВЕУ',[1,0,0,1],'ВЕУ достатньо для споживачів: решту джерел вимкнено, до шини підключено баластне навантаження (вторинний споживач). Якщо воно не приймає надлишок, відключають частину ВЕУ.']];
+var nm=['ВЕУ','Дизель','АБ','Баласт'],mb=$('#mbtns');
+function mset(i){mb.querySelectorAll('button').forEach(function(b,j){b.setAttribute('aria-pressed',i===j)});
+$('#chips').innerHTML=nm.map(function(n,k){return '<span class="chip'+(modes[i][1][k]?' on':'')+'">'+n+(modes[i][1][k]?': працює':': вимк.')+'</span>'}).join('');$('#mdesc').textContent=modes[i][2]}
+modes.forEach(function(d,i){var b=document.createElement('button');b.textContent='«'+d[0]+'»';b.onclick=function(){mset(i)};mb.appendChild(b)});
+mset(4);
+/* Quiz */
+var Q=[
+['Що означає термін «гібридне енергоживлення»?',['Використання лише сонячних і вітрових установок','Поєднання установок на відновлюваних і традиційних джерелах, зокрема власних і мережі','Тільки автономна робота з дизель-генератором','Лише акумулювання енергії'],1,'Гібридне енергоживлення — це ВДЕ плюс традиційні джерела, зокрема власні й централізована мережа.'],
+['У якому режимі здебільшого працює комбінована система електроживлення?',['Послідовному','Послідовно-паралельному','Паралельному','Резервному'],2,'Здебільшого паралельний: енергію виробляють одночасно всі елементи.'],
+['Що таке мікромережі (microgrids)?',['Великі регіональні ЛЕП','Малі локальні системи генерації й розподілу з навантаженням, ВДЕ, накопичувачами й генераторами','Лише дизельні станції','Системи обліку електроенергії'],1,'Це локальні системи, що об’єднують навантаження, різні ВДЕ, зберігання енергії та звичайні генератори.'],
+['Хто такі prosumers?',['Постачальники палива','Системні оператори','Виробники-споживачі','Проєктувальники ВЕС'],2,'Concept active distribution network: перехід від споживачів до виробників-споживачів.'],
+['Що є ключовим фактором, який обумовлює конфігурацію енергосистеми?',['Колір обладнання','Можливість керування режимом генерації','Кількість працівників','Довжина кабелю'],1,'ВЕС і СЕС керовані обмежено через залежність від погоди, тому це визначальний фактор.'],
+['Які графіки генерації й споживання заявляють за вітчизняними вимогами?',['Щорічні','Щомісячні','Погодинні на добу наперед','Щохвилинні на тиждень'],2,'Переважно погодинні на добу наперед.'],
+['Яку функцію виконує інвертор у схемі зі спільною шиною постійного струму, приєднаною до мережі?',['Тільки заряджає акумулятор','Є інтерфейсом між джерелами та мережею й контролює напругу шини ПС','Підвищує швидкість вітру','Замінює акумулятор'],1,'Інвертор — інтерфейс і контролер напруги шини постійного струму.'],
+['Головна перевага топології зі спільною шиною ПС і спільним інвертором:',['Джерела можуть працювати на різній частоті й без синхронізму','Не потрібен інвертор','Не потрібен акумулятор','Лише одне джерело'],0,'Напруга шини фіксована, струм кожного джерела регулюється незалежно.'],
+['Яку роль виконує акумуляторна батарея на спільній шині?',['Генератор реактивної потужності','Стабілізатор напруги','Вимірювач частоти','Баластне навантаження'],1,'АБ підтримує рівень напруги в шині.'],
+['Для чого в мікромережу з дизель-генератором додають суперконденсатор?',['Для охолодження дизеля','Для покриття дефіциту під час пуску дизель-генератора','Для збільшення швидкості вітру','Для заміни СЕС'],1,'Також компенсує обмеження струму заряду/розряду АБ.'],
+['Що позначає P<sub>Δ</sub>(t) у рівнянні балансу (7.1)?',['Потужність навантаження','Потужність генератора','Небаланс потужностей','Потужність мережі'],2,'P<sub>Δ</sub> = P<sub>W</sub> + P<sub>S</sub> ± P<sub>A</sub> + P<sub>gen</sub> − P<sub>U</sub>.'],
+['Яка роль електролізу в системі з ВДЕ?',['Охолоджує ВЕУ','Перетворює надлишкову енергію на водень для накопичення і зменшує втрати від обмежень генерації','Збільшує LOLE','Замінює інвертор'],1,'Водень зберігають і повертають в електроенергію через паливні елементи.'],
+['Що таке ЛЕС?',['Лише мережа 110 кВ','Сукупність генерувального обладнання обмеженої потужності, перетворювачів і споживачів у єдиних електромагнітних процесах','Лише група акумуляторів','Система обліку'],1,'ЛЕС має зв’язок із централізованою мережею і може працювати автономно.'],
+['Що вимірює індекс LOLE?',['Вартість енергії','Час, протягом якого навантаження перевищує доступну генерацію (год/рік)','Кількість ВЕУ','ККД інвертора'],1,'Норма: США 0,1 доби/рік, Франція 3 год, Британія 4 год, Ірландія 8 год.'],
+['Що характеризують індекси SAIDI та SAIFI?',['Вартість АБ','Середню тривалість і середню частоту довгих перерв електропостачання','Швидкість вітру','Гармоніки'],1,'SAIDI — тривалість, SAIFI — частота.'],
+['Що відображає індекс LPSP?',['Імовірність втрати можливості забезпечити потреби споживача','Потужність СЕС','Втрати в кабелі','Ємність АБ'],0,'Популярний для оцінки автономних і комбінованих систем.'],
+['Які рішення називають Парето-оптимальними?',['Найдешевші','Такі, де покращення одного показника можливе лише за рахунок погіршення іншого','Найпотужніші','Усі можливі'],1,'Крива AB на рис. 7.6 — арбітражна множина Парето.'],
+['На скільки збалансована ВДЕС скорочує споживання дизельного палива?',['10–20 %','30–40 %','60–80 %','100 %'],2,'Ресурс дизельних двигунів зростає в 2–3 рази.'],
+['Що відбувається в режимі ВДЕС «Тільки ВЕУ»?',['Вмикаються всі дизелі','Решта джерел вимикається, до шини підключають баластне навантаження','Працює лише АБ','Станція зупиняється'],1,'Якщо вторинні споживачі не приймають надлишок, відключають частину ВЕУ.'],
+['Чому доцільно комбінувати вітрову, сонячну й гідроенергію?',['Бо їхні піки збігаються','Бо їхні просторові й часові коливання не збігаються: вітер узимку, сонце влітку, річки навесні','Бо вони не залежать від погоди','Бо вони однаково керовані'],1,'Різні закономірності у просторі й часі згладжують сумарну генерацію.']];
+var done=0,ok=0,qz=$('#quiz');
+function build(){qz.innerHTML='';done=ok=0;Q.forEach(function(q,i){var d=document.createElement('div');d.className='card q';d.id='q'+(i+1);if(i>0)d.style.display='none';
+d.innerHTML='<p>'+(i+1)+'. '+q[0]+'</p>';
+q[1].forEach(function(o,j){var b=document.createElement('button');b.className='opt';b.innerHTML=o;b.onclick=function(){
+d.querySelectorAll('.opt').forEach(function(x,k){x.disabled=true;if(k===q[2])x.classList.add('ok')});
+if(j===q[2])ok++;else b.classList.add('bad');done++;
+var e=document.createElement('div');e.className='exp';e.innerHTML=q[3]+' <a href="#" data-n="'+(i+1)+'">У конспекті</a>';d.appendChild(e);
+e.querySelector('a').onclick=function(ev){ev.preventDefault();var t=document.querySelector('mark[data-q="'+(i+1)+'"]');if(t)t.scrollIntoView({block:'center'})};
+if(i<Q.length-1){var nb=document.createElement('button');nb.className='ctl';nb.style.marginTop='10px';nb.textContent='Наступне питання';nb.onclick=function(){nb.remove();var n=$('#q'+(i+2));n.style.display='';n.scrollIntoView({block:'start'})};d.appendChild(nb)}upd()};d.appendChild(b)});qz.appendChild(d)});upd()}
+function upd(){$('#sc').textContent='Відповідено: '+done+'/20 · Правильно: '+ok;$('#pb').style.width=done*5+'%';
+$('#res').textContent=done===20?'Результат: '+ok+' з 20 ('+Math.round(ok*5)+' %). '+(ok>=18?'Відмінно.':ok>=14?'Добре. Перегляньте виділені терміни у питаннях з помилками.':'Повторіть конспект і спробуйте ще раз.'):''}
+$('#rs').onclick=function(){build();qz.scrollIntoView()};
+build();
+})();
+</script>
+</body>
+</html>
